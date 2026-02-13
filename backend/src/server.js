@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import path from "path";
 import { ENV } from "./lib/env.js";
 import { connectDB } from "./lib/db.js";
+import { functions } from "./lib/inngest.js";
 
 
 dotenv.config();
@@ -10,6 +11,10 @@ dotenv.config();
 
 const app = express();
 const __dirname = path.resolve();
+
+app.use(express.json());
+app.use(cors({origin:ENV.CLIENT_URL,credentials:true}));
+app.use("/api/inngest", serve({ client: inngest, functions}))
 
 app.get("/sourav",(req,res)=>{
     res.status(200).json({msg:"success from api"})

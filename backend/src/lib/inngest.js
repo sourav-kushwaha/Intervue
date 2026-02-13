@@ -3,9 +3,8 @@ import { connectDB } from "./db.js";
 import User from "../models/User.js";
 
 
-export const inngest = new Inngest({ id: "intervue"
-});
-const SyncUser = inngest.createFunction(
+export const inngest = new Inngest({ id: "intervue"});
+ const syncUser = inngest.createFunction(
     {id: "sync-user"},
     {event:"clerk/user.created"},
     async ({event}) => {
@@ -19,7 +18,7 @@ const SyncUser = inngest.createFunction(
         }
     await User.create(newUser)
     }
-)
+);
 
 
 const deleteUserFromDB = inngest.createFunction(

@@ -3,9 +3,10 @@ import dotenv from "dotenv";
 import path from "path";
 import { ENV } from "./lib/env.js";
 import { connectDB } from "./lib/db.js";
-import { functions } from "./lib/inngest.js";
+import { functions, inngest } from "./lib/inngest.js";
+import {serve} from "inngest/express";
 
-
+import cors from "cors";
 dotenv.config();
 
 

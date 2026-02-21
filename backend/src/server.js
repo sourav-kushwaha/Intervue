@@ -26,32 +26,15 @@ app.get("/mummy",(req,res)=>{
 
 const PORT = process.env.PORT;
 
-//making our app ready for the deployment
-// if(ENV.NODE_ENV === "production"){
-//     app.use(express.static(path.join(__dirname,"../frontend/dist")));
-//     app.get("*", (req,res)=>{
-//         res.sendFile(path.join(__dirname,"../frontend","dist", "index.html"))
-//     });
-// }
 
-if (process.env.NODE_ENV === "production") {
-    // 2. Resolve the path to the frontend dist folder
-    // We go UP from 'backend' to 'root', then into 'frontend/dist'
-    const frontendPath = path.resolve(__dirname,"..", "..", "frontend", "dist");
+if (ENV.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-    console.log("--- DEPLOYMENT DEBUG ---");
-    console.log("Current Directory (__dirname):", __dirname);
-    console.log("Looking for Frontend at:", frontendPath);
-    console.log("------------------------");
-
-    // 3. Serve the static files
-    app.use(express.static(frontendPath));
-
-    // 4. The catch-all route (Fixes the 404 on refresh)
-    app.get("*", (req, res) => {
-        res.sendFile(path.join(frontendPath, "index.html"));
-    });
+  app.get("/{*any}", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  });
 }
+
 
 const startServer = async () => {
 try {

@@ -34,18 +34,19 @@ const __filename = fileURLToPath(import.meta.url);
 const __backendSrcDir = path.dirname(__filename); 
 
 if (ENV.NODE_ENV === "production") {
-  // 2. We are in root/backend/src. 
-  // To get to root/frontend/dist, we go UP two levels.
-  const frontendPath = path.resolve(__backendSrcDir, "..", "..", "frontend", "dist");
+    // This gets the absolute path to the project root on Render
+    const rootPath = process.cwd(); 
+    const frontendPath = path.join(rootPath, "frontend", "dist");
 
-  console.log("Static files being served from:", frontendPath);
+    // Serve the static files from the absolute path
+    app.use(express.static(frontendPath));
 
-  app.use(express.static(frontendPath));
-
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(frontendPath, "index.html"));
-  });
+    // Catch-all route for React SPA
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(frontendPath, "index.html"));
+    });
 }
+
 
 const startServer = async () => {
 try {

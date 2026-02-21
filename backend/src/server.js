@@ -27,20 +27,30 @@ app.get("/mummy",(req,res)=>{
 const PORT = process.env.PORT;
 
 
-import { fileURLToPath } from 'url';
+// if (ENV.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
-// 1. Get the actual directory of THIS file (server.js)
-const __filename = fileURLToPath(import.meta.url);
-const __backendSrcDir = path.dirname(__filename); 
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.join(__dirname, "../../frontend", "dist", "index.html"));
+//   });
+// }
 
-if (ENV.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-  app.get("/{*any}", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+if (process.env.NODE_ENV === "production") {
+
+  const frontendPath = path.join(
+    __dirname,
+    "../../frontend/dist"
+  );
+
+  console.log("Serving frontend from:", frontendPath);
+
+  app.use(express.static(frontendPath));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(frontendPath, "index.html"));
   });
 }
-
 const startServer = async () => {
 try {
     await connectDB();

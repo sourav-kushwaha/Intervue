@@ -37,7 +37,7 @@ const PORT = process.env.PORT;
 if (process.env.NODE_ENV === "production") {
     // 2. Resolve the path to the frontend dist folder
     // We go UP from 'backend' to 'root', then into 'frontend/dist'
-    const frontendPath = path.resolve(__dirname, "..", "frontend", "dist");
+    const frontendPath = path.resolve(__dirname,"..", "..", "frontend", "dist");
 
     console.log("--- DEPLOYMENT DEBUG ---");
     console.log("Current Directory (__dirname):", __dirname);

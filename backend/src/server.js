@@ -39,6 +39,11 @@ if (process.env.NODE_ENV === "production") {
     // We go UP from 'backend' to 'root', then into 'frontend/dist'
     const frontendPath = path.resolve(__dirname, "..", "frontend", "dist");
 
+    console.log("--- DEPLOYMENT DEBUG ---");
+    console.log("Current Directory (__dirname):", __dirname);
+    console.log("Looking for Frontend at:", frontendPath);
+    console.log("------------------------");
+
     // 3. Serve the static files
     app.use(express.static(frontendPath));
 

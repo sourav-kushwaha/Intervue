@@ -34,19 +34,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __backendSrcDir = path.dirname(__filename); 
 
 if (ENV.NODE_ENV === "production") {
-    // This gets the absolute path to the project root on Render
-    const rootPath = process.cwd(); 
-    const frontendPath = path.join(rootPath, "frontend", "dist");
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-    // Serve the static files from the absolute path
-    app.use(express.static(frontendPath));
-
-    // Catch-all route for React SPA
-    app.get("*", (req, res) => {
-        res.sendFile(path.join(frontendPath, "index.html"));
-    });
+  app.get("/{*any}", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  });
 }
-
 
 const startServer = async () => {
 try {

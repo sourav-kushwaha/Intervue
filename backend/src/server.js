@@ -27,14 +27,25 @@ app.get("/mummy",(req,res)=>{
 const PORT = process.env.PORT;
 
 
+import { fileURLToPath } from 'url';
+
+// 1. Get the actual directory of THIS file (server.js)
+const __filename = fileURLToPath(import.meta.url);
+const __backendSrcDir = path.dirname(__filename); 
+
 if (ENV.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "frontend/dist")));
+  // 2. We are in root/backend/src. 
+  // To get to root/frontend/dist, we go UP two levels.
+  const frontendPath = path.resolve(__backendSrcDir, "..", "..", "frontend", "dist");
+
+  console.log("Static files being served from:", frontendPath);
+
+  app.use(express.static(frontendPath));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+    res.sendFile(path.join(frontendPath, "index.html"));
   });
 }
-
 
 const startServer = async () => {
 try {

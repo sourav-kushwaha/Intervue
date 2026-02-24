@@ -8,7 +8,9 @@ import {serve} from "inngest/express";
 
 import cors from "cors";
 dotenv.config();
-
+console.log("SERVER ENV CHECK:");
+console.log("EVENT KEY:", process.env.INNGEST_EVENT_KEY);
+console.log("SIGNING KEY:", process.env.INNGEST_SIGNING_KEY);
 
 const app = express();
 const __dirname = path.resolve();

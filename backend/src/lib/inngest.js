@@ -4,7 +4,11 @@ import User from "../models/User.js";
 import {deleteStreamUser, createStreamUser} from "./stream.js";
 
 
-export const inngest = new Inngest({ id: "intervue-prod"});
+export const inngest = new Inngest({ id: "intervue",
+  eventKey: process.env.INNGEST_EVENT_KEY,
+  signingKey: process.env.INNGEST_SIGNING_KEY,
+
+});
  const syncUser = inngest.createFunction(
     {id: "sync-user"},
     {event:"clerk/user.created"},
@@ -38,4 +42,4 @@ const deleteUserFromDB = inngest.createFunction(
     await deleteStreamUser(id.toString());
     }
 );
-export const functions = [syncUser,deleteUserFromDB]
+export const functions = [syncUser,deleteUserFromDB];

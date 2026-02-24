@@ -4,7 +4,7 @@ import User from "../models/User.js";
 import {deleteStreamUser, createStreamUser} from "./stream.js";
 
 
-export const inngest = new Inngest({ id: "intervue"});
+export const inngest = new Inngest({ id: "intervue-prod"});
  const syncUser = inngest.createFunction(
     {id: "sync-user"},
     {event:"clerk/user.created"},

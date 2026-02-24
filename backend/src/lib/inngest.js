@@ -18,7 +18,7 @@ export const inngest = new Inngest({ id: "intervue"});
             profileImage:image_url
         }
     await User.create(newUser);
-    await upsertStreamUser({
+    await createStreamUser({
         id:newUser.clerkId.toString(),
         name:newUser.name,
         image:newUser.profileImage,

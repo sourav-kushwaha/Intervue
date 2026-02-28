@@ -82,7 +82,9 @@ export async function joinSession(req,res) {
         const clerkId = req.user.clerkId
         const session = await Session.findById(id);
         if(!session) return res.status(404).json({msg:"session not found"});
+        if(session.status != "active") return res.status(404).json({msg:"cannot join a completed session"});
         if(session.participant) return res.status(404).json({message:"session is full"})
+            if(session.host.toString() == userId.toString()) return res.status(400).json({msg:"host cannot be the participant"})
             session.participant = userId
         await session.save()
         const channel = chatClient.channel("messaging", session.callId);

@@ -10,10 +10,10 @@ import { getDifficultyBadgeClass } from "../lib/utils.js";
 import { Loader2Icon, LogOutIcon, PhoneOffIcon } from "lucide-react";
 import CodeEditorPanel from "../components/CodeEditorPanel";
 import OutputPanel from "../components/OutputPanel";
-
+import VideoCallUI from "../components/VideoCallUI"
 import useStreamClient from "../hooks/useStreamClient";
 import { StreamCall, StreamVideo } from "@stream-io/video-react-sdk";
-import VideoCallUI from "../components/VideoCallUI";
+
 
 function SessionPage() {
   const navigate = useNavigate();

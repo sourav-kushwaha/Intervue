@@ -100,4 +100,4 @@ function VideoCallUI({ chatClient, channel }) {
     </div>
   );
 }
-export default VideoCallUI;
+export default VideoCallUI

@@ -8,7 +8,7 @@ problem:{
 difficulty:{
     type:String,
     enum:["easy","medium","hard"],
-    reuired:true,
+    required:true,
 },
 host:{
  type: mongoose.Schema.Types.ObjectId,
@@ -18,7 +18,7 @@ reuired:true,
 participant:{
     type:mongoose.Schema.Types.ObjectId,
     ref:"User",
-    default:"null",
+    default:null,
 },
 status:{
     type:String,

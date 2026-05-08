@@ -1,6 +1,3 @@
-
-
-
 import { chatClient, streamClient } from "../lib/stream.js";
 import Session from "../models/Session.js";
 
@@ -148,13 +145,18 @@ export async function endSession(req, res) {
       return res.status(400).json({ message: "Session is already completed" });
     }
 
-    // delete stream video call
-    const call = streamClient.video.call("default", session.callId);
-    await call.delete({ hard: true });
+    try {
+      // delete stream video call
+      const call = streamClient.video.call("default", session.callId);
+      await call.delete({ hard: true });
 
-    // delete stream chat channel
-    const channel = chatClient.channel("messaging", session.callId);
-    await channel.delete();
+      // delete stream chat channel
+      const channel = chatClient.channel("messaging", session.callId);
+      await channel.delete();
+    } catch (streamError) {
+      console.log("Error deleting stream resources:", streamError.message);
+      // We continue to update our database even if stream fails
+    }
 
     session.status = "completed";
     await session.save();
